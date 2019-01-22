@@ -19,7 +19,7 @@ The following are sample commands:
 
 ## Bugs and Issues
 
-Have a bug or an issue with this template? [Open a new issue](https://github.com/BarbaraGuo/BarbaraGuo.github.io/issues) here on GitHub.
+Have a bug or an issue? [Open a new issue](https://github.com/BarbaraGuo/BarbaraGuo.github.io/issues) here on GitHub.
 
 ## About
 

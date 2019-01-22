@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Grayscale - Start Bootstrap Theme</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom fonts for this template -->
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Major+Mono+Display" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="css/grayscale.css" rel="stylesheet">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.5/angular.min.js"></script>
+
+  </head>
+
+  <body id="page-top">
+  
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+      <div class="container">
+        <a class="navbar-brand js-scroll-trigger header" href="#page-top">Generate <sup>alpha</sup></a>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          Menu
+          <i class="fas fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="#about">About</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="#projects">Development</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="#signup">Contact</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Header -->
+    <div ng-app="mainPage" ng-controller="mainPageCtrl as vm" data-ng-init="vm.init()">
+      <div id = "overlay" ng-show= "vm.successfulTranslate"class="text-center">
+        <div class = "container col-xs-1 text-center" align="center">
+            <div class="col-md-10 col-lg-8 mx-auto text-center">
+
+                <h1 class="text-white mb-5">Solution</h1>
+              </div>
+              <div class="form-group">
+                  <label for="exampleFormControlTextarea1"class = "text-white">Code</label>
+                  <textarea readonly class="form-control" id="exampleFormControlTextarea1" rows="3">{{vm.result}} </textarea>
+              </div>
+              <button type="submit" class="btn btn-primary mx-auto" ng-click = "vm.successfulTranslate = false">Close</button>
+        </div>
+        
+      </div>
+      <header class="masthead" onload = "vm.read()">
+        <div class="container d-flex h-100 align-items-center">
+          <div class="mx-auto text-center">
+            <h1 typed-effect text = "vm.title" speed = "150" blink = "true" class="mx-auto my-0">{{vm.title}}</h1>
+            <br>
+            <br>
+            <h2 class="text-white-50 mx-auto mt-2 mb-5">{{vm.message}}</h2>
+            <div id = "enter">
+                <div class = "input-group">
+                  <input class="form-control gen flex-fill mr-0  mb-3 mb-sm-0"  my-enter="vm.generate()" id = "commandBar" ng-model = "vm.command" placeholder="ie. for(i < 2) then y = y + 3...">
+                 <!-- <div class="input-group-append mr-sm-2">
+                      <button class="btn2 btn-outline-secondary" style = "border-radius: 0rem 0.25rem 0.25rem 0rem;" type ="button" data-toggle="tooltip" data-placement="bottom" title="Generate with file upload">
+                        <img src="img/data-transfer-upload.svg"> 
+                      </button>
+                  </div>-->
+                          
+                  <div class="dropdown" style = "float: right">
+                    <div  class="dropdown-menu" aria-labelledby="language">
+                      <option class="dropdown-item" ng-click="vm.language = l.name" ng-repeat = "l in vm.languages" value = "{{l.name}}">{{l.name}}</option>
+                    </div>
+                    <button id = "languageDrop" class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        {{vm.language | limitTo:vm.languageDisplayLimit}}
+                    </button>
+                  </div>
+                </div>  
+            </div>
+            <a class="nav-link js-scroll-trigger" href="#usage">How to use</a>
+            <br>
+            <button ng-show = "vm.command != '' && vm.language != 'Language'"type="submit" class="btn btn-primary mx-auto" ng-click = "vm.generate()">Generate</button>
+            <br>
+            <div ng-show= "vm.failed" class="alert alert-warning alert-dismissible" id = "genAlert" role="alert">
+                <button type="button" class="close" data-dismiss="alert" >&times;</button>
+              {{vm.genMessage}} <a href="#usage" class="alert-link"> Help</a>
+            </div>
+          </div>
+        </div>
+      </header>
+    </div>
+
+    <section id="usage" class="usage-section bg-black">
+      <div class="container">
+        <div class="row">
+            <div class="col-md-10 col-lg-8 mx-auto text-center">
+
+                <h2 class="text-white mb-5"></h2>
+              </div>
+              <div class="col-md-10 col-lg-8 mx-auto text-center">
+
+                  <h2 class="text-white mb-5"></h2>
+                </div>
+          <div class="col-md-10 col-lg-8 mx-auto text-center">
+
+            <h2 class="text-white mb-5">Usage</h2>
+          </div>
+            <p class = "text-white">
+              This website is still in its development phase. The following commands have been trained to work and map to 
+              a proper template:
+            </p>
+
+            <div class="list-group">
+                <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+                    <div class="d-flex w-100 justify-content-between">
+                      <h5 class="mb-1">For Loop</h5>
+                    </div>
+                    <small class="text-muted">Following input tested</small>
+                    <p class="mb-1">for (x < 2) then y = y + 1</p>
+                  </a>
+                <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+                  <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1">Addition</h5> <br>
+                  </div>
+                  <small class="text-muted">Following input tested</small>
+                  <p class="mb-1">x = x + 1</p>
+                </a>
+              </div>
+        </div>
+      </div>
+    </section>
+
+    
+    <!-- About Section -->
+    <section id="about" class="about-section text-center">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 mx-auto">
+            <h2 class="text-white mb-4">Problem: Coding without the coding.</h2>
+            <p class="text-white-50"> Generate is a learning tool for novice programmers that can translate pseudocode or written descriptions of code 
+              into functional code. Essentially a natural language compiler, Generate works by employing the fundamental principles of Natural Language Processing,
+              and machine learning to parse and classify your input. In order to do this and ensure that users are getting
+              the correct program, supervised learning is used. Furthermore, for each potential command, Generate requires the corresponding
+              template, which needs to be tagged itself. That is why at this point in time, being a relatively new project,
+              the number of user commands generate can interpret is rather limited.
+          </div>
+        </div>
+        <img src="img/404343-PD54FL-160.png" class="img-fluid" alt="">
+      </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="projects-section bg-light">
+      <div class="container">
+
+        <!-- Featured Project Row -->
+        <div class="row align-items-center no-gutters mb-4 mb-lg-5">
+          <div class="col-xl-8 col-lg-7">
+            <img class="img-fluid mb-3 mb-lg-0" src="img/waves.jpg" alt="">
+          </div>
+          <div class="col-xl-4 col-lg-5">
+            <div class="featured-text text-center text-lg-left">
+              <h4>Development</h4>
+              <p class="text-black-50 mb-0">
+                In all honesty, I came up with the idea after when I wanted a BASH script to help me check for differences
+                between a series of files, but it was 4am and I didn't want to have to write and test a script to help me debug code.
+                
+                <br>
+                I have always wanted to learn about NLP, since I first discovered Cleverbot back in elementary.
+                It's taken me some time to get to a point where I felt confident enough to pursue this passion instead of waiting around
+                for a class to teach it to me.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project One Row -->
+        <div class="row justify-content-center no-gutters mb-5 mb-lg-0">
+            <div class="col-lg-6">
+              <img class="img-fluid" src="img/Code1.png" alt="">
+            </div>
+            <div class="col-lg-6">
+              <div class="bg-black text-center h-100 project">
+                <div class="d-flex h-100">
+                  <div class="project-text w-100 my-auto text-center text-lg-left">
+                    <h4 class="text-white">Ultimate Goal</h4>
+                    <p class="mb-0 text-white-50">
+                      My ultimate goal is to transform this application into an effective learning tool for novice programmers.
+                      In order to do that I need to be able to develop this program to be able to handle a variety of commands in the English language. 
+                      
+                    </p>
+                    <hr class="d-none d-lg-block mb-0 ml-0">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+  
+          <!-- Project Two Row -->
+          <div class="row justify-content-center no-gutters">
+            <div class="col-lg-6">
+              <img class="img-fluid" src="img/Code2.png" alt="">
+            </div>
+            <div class="col-lg-6 order-lg-first">
+              <div class="bg-black text-center h-100 project">
+                <div class="d-flex h-100">
+                  <div class="project-text w-100 my-auto text-center text-lg-right">
+                    <h4 class="text-white">Current Step</h4>
+                    <p class="mb-0 text-white-50">To prepare this site for showcasing, I have trained the classifier to recognize the pseudocode command for
+                      a for loops and for addition with assignment.Presently, when I receive a command I will split the sentence and parse each word into 3-grams. I then group common
+                      words into the basic commands I have seen frequently used throughout my computer science career. <br>
+                      ie. Loop, if, sort, find, merge, add, etc.
+                    </p>
+                    <hr class="d-none d-lg-block mb-0 mr-0">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+  
+        </div>
+      </section>
+
+    <!-- Signup Section -->
+    <section id="signup" class="signup-section">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-10 col-lg-8 mx-auto text-center">
+
+            <i class="far fa-paper-plane fa-2x mb-2 text-white"></i>
+            <h2 class="text-white mb-5">Contact Me</h2>
+
+            <p></p>
+          </div>
+        </div>
+        <section class="contact-section ">
+            <div class="container">
+      
+              <div class="row">
+      
+                <div class="col-md-4 mb-3 mb-md-0">
+                  <a href="https://github.com/BarbaraGuo/BarbaraGuo.github.io">
+                    <div class="card py-4 h-100">
+                      <div class="card-body text-center">
+                        <i class="fab fa-github text-primary mb-2"></i>
+                        <h4 class="text-uppercase m-0">Repository</h4>
+                        <hr class="my-4">
+                        <div class="small text-black-50">
+                          Generate but Behind the Scenes
+                        </div>
+                      </div>
+                    </div>
+                  </a>
+                </div>
+      
+                <div class="col-md-4 mb-3 mb-md-0">
+                  <a href=""mailto: b32guo@edu.uwaterloo.ca"">
+                    <div class="card py-4 h-100">
+                      <div class="card-body text-center">
+                        <i class="fas fa-envelope text-primary mb-2"></i>
+                        <h4 class="text-uppercase m-0">Email</h4>
+                        <hr class="my-4">
+                        <div class="small text-black-50">
+                          b32guo@edu.uwaterloo.ca
+                        </div>
+                      </div>
+                    </div>
+                  </a>
+                </div>
+      
+                <div class="col-md-4 mb-3 mb-md-0">
+                  <div class="card py-4 h-100">
+                    <div class="card-body text-center">
+                      <i class="fas fa-globe text-primary mb-2"></i>
+                      <h4 class="text-uppercase m-0">Personal Website</h4>
+                      <hr class="my-4">
+                      <div class="small text-black-50">For portfolio and other works</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+      
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    
+        <!--<div class="social d-flex justify-content-center">
+          <a href="#" class="mx-2">
+            <i class="fab fa-github"></i>
+          </a>
+        </div>-->
+
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black small text-center text-white-50">
+
+      <a href="https://www.freepik.com/free-photos-vectors/business">Isometric Computer</a> ||
+      <a href="http//wallpaperplay.com/board/4k-minimalist-wallpapers">Header</a>
+      <div class="container">
+        Copyright &copy; Generate Alpha 2018
+      </div>
+    </footer>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for this template -->
+    <script src="js/grayscale.min.js"></script>
+
+    <script src="program-core.js"></script>
+    <script src="bundle.js"></script>
+
+  </body>
+
+</html>

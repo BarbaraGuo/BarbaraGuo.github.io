@@ -53,7 +53,7 @@
 
     <!-- Header -->
     <div ng-app="mainPage" ng-controller="mainPageCtrl as vm" data-ng-init="vm.init()">
-      <div id = "overlay" ng-show= "vm.successfulTranslate"class="text-center">
+      <div id = "overlay" ng-show= "vm.successfulTranslate" ng-cloak class="text-center">
         <div class = "container col-xs-1 text-center" align="center">
             <div class="col-md-10 col-lg-8 mx-auto text-center">
 
@@ -97,8 +97,7 @@
             <br>
             <button ng-show = "vm.command != '' && vm.language != 'Language'"type="submit" class="btn btn-primary mx-auto" ng-click = "vm.generate()">Generate</button>
             <br>
-            <div ng-show= "vm.failed" class="alert alert-warning alert-dismissible" id = "genAlert" role="alert">
-                <button type="button" class="close" data-dismiss="alert" >&times;</button>
+            <div ng-cloak ng-show= "vm.failed" class="alert alert-warning" id = "genAlert" role="alert">
               {{vm.genMessage}} <a href="#usage" class="alert-link"> Help</a>
             </div>
           </div>
@@ -133,7 +132,9 @@
                     </div>
                     <small class="text-muted">Following input tested</small>
                     <p class="mb-1">for (x < 2) then y = y + 1 <br>
-                    for less than</p>
+                    for less than <br>
+                    loop less than <br>
+                    for loop template</p>
                   </a>
                 <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
                   <div class="d-flex w-100 justify-content-between">
